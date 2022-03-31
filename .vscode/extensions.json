@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "serayuzgur.crates",
+        "matklad.rust-analyzer",
+        "vadimcn.vscode-lldb",
+        "kevinkassimo.cargo-toml-snippets",
+        "belfz.search-crates-io",
+        "bungcip.better-toml",
+        "swellaby.vscode-rust-test-adapter",
+    ]
+}
