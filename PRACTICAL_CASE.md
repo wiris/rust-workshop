@@ -20,8 +20,6 @@ For this practical case you are welcome to propose a solution for **one** of the
 
 > **This is not a test!** Choose the one you feel like you will have most fun with :)
 
-___
-
 ## Option A - LaTeX Tokenizer
 
 Before starting the translation phase our input must be splitted into what we call _Tokens_. A _Token_ represents a substring of the input with an identified meaning, and we won't cover here all the possible tokenizations for the LaTeX language. Instead, for the purposes of this activity, we define a Token according to the following 3 rules:
@@ -30,7 +28,7 @@ Before starting the translation phase our input must be splitted into what we ca
 2. Any non blank chararacter (not `' '`) is a Token.
 3. A blank character (`' '`) is a Token **only** when placed inside a `\text{ ... }` command.
 
-For instance:
+For instance, the following input
 
 ```bash
 '\frac{ 1 + 1 }{ 2 }'  #   spaces must be ignored
@@ -42,27 +40,27 @@ is tokenized as
 ['\frac', '{', '1', '+', '1', '}', '{', '2', '}']   
 ```
 
-Another example:
+For another example, consider this other input with spaces inside a `\text` command:
 
 ```bash
 '\text{ Hello !}'      #   spaces must NOT be ignored
 ```
 
-is tokenized as
+its tokenization is
 
 ```bash
 ['\text', '{', ' ', 'H', 'e', 'l', 'l', 'o', ' ', '!', '}']
 ```
 
-Your task is to implement the function that given a LaTeX input returns a vector of tokens according to the rules above. To do so you only need to fill the `tokenize` function on `/src/latex-tokenizer.rs` with your implemenation.
+Your task is to implement the function that given a LaTeX input returns a vector of tokens according to the rules above. To do so fill the `tokenize` function on `/src/tokenizer.rs` with your implementation.
 
 ___
 
 ## Option B - Tree Reducer
 
-At some point of the translation process we have a similiar thing to an _Abstract Syntax Tree_ of the input but where each node has already been visited and transformed accordingly to a _pseudo_ MathML containing **placeholders**. The main goal is to flatten this tree into a plain string with the help of those placeholders to indicate where each flattened subtree must be substitued.
+At some point of the translation process we have an _Abstract Syntax Tree_ of the input but where each node has already been visited and transformed accordingly to a "pseudo MathML" containing **placeholders**. The goal then is to flatten this tree into a string with the help of placeholders to indicate where each flattened subtree must be included.
 
-It is easier to see what that does look like with an example. Consider the folowing tree (possibly obtained after parsing and transforming the LaTeX input `\frac{1}{2}`):
+It is easier to see what that does look like with an example. Consider the folowing tree,possibly obtained after parsing and transforming the LaTeX input `\frac{1}{2}`:
 
 ```bash
 Node: '<math> $1 </math>'                                #  Equation
@@ -78,7 +76,7 @@ Node: '<math> $1 </math>'                                #  Equation
               └─ Leaf: '2'
 ```
 
-The `$n` inside the node's strings are the placeholders we mentioned above. A given `$i` must be replaced by the result of (recursively) flattening of the `i`th child of the node.
+The `$n` inside the node strings are the placeholders we mentioned above. Any given `$i` must be replaced by the recursively flattened `i`th child of the node.
 
 Bottom-up the first substitution would result in:
 
@@ -131,7 +129,7 @@ its reduction should result in the following string:
 Notice that:
 
 * A subtree can appear multiple times if its placeholder is repeated.
-* A subtree may not appear if its corresponding placeholder doesn't appear neither.
+* A subtree does not appear if its corresponding placeholder doesn't appear on the node above.
 
 The purpose of this activity is to implement this flattening process. To do so implement the function `reduce_tree` on `/src/reducer.rs`. You'll also find the data definition of the tree representing this structure, which **you don't have to modify**.
 
@@ -139,9 +137,9 @@ ___
 
 ## Option C - MathML Postprocess
 
-After the translation phase we obtain a MathML string. However, this string may contain tags without any content such as the `mrow` on `<math><mfrac><mrow></mrow><mi>2</mi></math>` (obtained after translating the LaTeX input `\frac{}{2}` for instance). Such empty tags can be represented on MathML by what's called _autoclosing tag_: any XML tag `<myTag></myTag>` can be represented more concisely by `<myTag/>`.
+After the translation phase we obtain a MathML string. However, this string may contain tags without any content such as the `mrow` on `<math><mfrac><mrow></mrow><mi>2</mi></math>`,obtained after translating the LaTeX input `\frac{}{2}` for instance. Such empty tags can be represented on MathML by what's called _autoclosing tag_: any XML tag of the form `<myTag></myTag>` can be represented more concisely by `<myTag/>`.
 
-Your task here is to implement a postprocess on the MathML output that collapses such empty tags, so that for instance:
+Your task here is to implement a postprocess on the MathML that collapses such empty tags, so that for instance:
 
 ```xml
 <math><mfrac><mrow></mrow><mi>2</mi></math>
@@ -153,16 +151,17 @@ becomes
 <math><mfrac><mrow/><mi>2</mi></math>        <!-- notice here the <mrow/> construct -->
 ```
 
-Or if we :
+Or if we have the following empty equation:
 
 ```xml
 <math display="inline"></math>
 ```
 
-becomes
+the result of the postprocess is
 
 ```xml
 <math display="inline"/>
 ```
 
-Your task here is to implement the function that given a MathML input, process it by replacing any empty tag by its autoclosing equivalent. To do so, open `/src/mathml-postprocess.rs` and implement the `expand_autoclosing_tags` function.
+More precisely, implement the function that given a MathML string, replaces any empty tag by its autoclosing equivalent. To do so, open `/src/mathml-postprocess.rs` and implement the `expand_autoclosing_tags` function.
+___
