@@ -73,7 +73,7 @@ Node: '<math> $1 </math>'                                #  Equation
         |
         └── Node: '<mn> $1 </mn>'                        #  Denominator
               |
-              └─ Leaf '2'
+              └─ Leaf: '2'
 ```
 
 The `$n` inside the node's strings are the placeholders we mentioned above. A given `$i` must be replaced by the result of (recursively) flattening of the `i`th child of the node.
@@ -117,7 +117,7 @@ Node: '<math> $1 </math>'
         |
         ├── Leaf: 'is also called the Circle constant!'
         |
-        └── Leaf:  'i will be ignored :('
+        └── Leaf: 'i will be ignored :('
 ```
 
 its reduction should result in the following string:
@@ -147,7 +147,7 @@ Your task here is to implement a postprocess on the MathML output that collapses
 becomes
 
 ```xml
-<math><mfrac><mrow/><mi>2</mi></math>        <!-- notice here the <mrow/> construct! -->
+<math><mfrac><mrow/><mi>2</mi></math>        <!-- notice here the <mrow/> construct -->
 ```
 
 Or if we :
