@@ -64,15 +64,15 @@ It is easier to see what that does look like with an example. Consider the folow
 
 ```bash
 Node: '<math> $1 </math>'                                #  Equation
-  |
+  │
   └── Node: '<mfrac> $1 $2 </mfrac>'                     #  Fraction
-        |
+        │
         ├── Node: '<mn> $1 </mn>'                        #  Numerator
-        |     |
-        |     └─ Leaf: '1'
-        |
+        │     │
+        │     └─ Leaf: '1'
+        │
         └── Node: '<mn> $1 </mn>'                        #  Denominator
-              |
+              │
               └─ Leaf: '2'
 ```
 
@@ -82,11 +82,11 @@ Bottom-up the first substitution would result in:
 
 ```bash
 Node: '<math> $1 </math>'              
-  |
+  │
   └── Node: '<mfrac> $1 $2 </mfrac>'  
-        |
+        │
         ├── Leaf: '<mn> 1 </mn>'                          #  replaced $1 by '1'  
-        |
+        │
         └── Leaf: '<mn> 2 </mn>'                          #  replaced $1 by '2' 
 
 ```
@@ -95,7 +95,7 @@ and then
 
 ```bash
 Node: '<math> $1 </math>'               
-  |
+  │
   └── Leaf: '<mfrac> <mn> 1 </mn> <mn> 2 </mn> </mfrac>'  #  $1 became '<mn> 1 </mn>' 
                                                           #  and $2 became '<mn> 2 </mn>'
 ```
@@ -110,13 +110,13 @@ Lets see another example. Consider the following tree:
 
 ```bash
 Node: '<math> $1 </math>'                            
-  |
+  │
   └── Node: '<mi> $1 </mi> <mtext> $1 $2 </mtext>'         #  $1 appears 2 times, and $3 none!   
-        |
+        │
         ├── Leaf: 'π'                    
-        |
+        │
         ├── Leaf: 'is also called the Circle constant!'
-        |
+        │
         └── Leaf: 'i will be ignored :('
 ```
 
