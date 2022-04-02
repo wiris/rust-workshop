@@ -1,5 +1,7 @@
 # Practical Case
 
+## Introduction
+
 Here we show a (very) simplified version of the actual translator we have on production to allow our customers to translate from LaTeX to MathML. Each box represents a step that our engine must perform to translate a given imput:
 
 ```other
@@ -20,7 +22,7 @@ For this practical case you are welcome to propose a solution for **one** of the
 
 > **This is not a test!** Choose the one you feel like you will have most fun with :)
 
-## Option A - LaTeX Tokenizer
+## Option A: LaTeX Tokenizer
 
 Before starting the translation phase our input must be splitted into what we call _Tokens_. A _Token_ represents a substring of the input with an identified meaning, and we won't cover here all the possible tokenizations for the LaTeX language. Instead, for the purposes of this activity, we define a Token according to the following 3 rules:
 
@@ -56,7 +58,7 @@ Your task is to implement the function that given a LaTeX input returns a vector
 
 ___
 
-## Option B - Tree Reducer
+## Option B: Tree Reducer
 
 At some point of the translation process we have an _Abstract Syntax Tree_ of the input but where each node has already been visited and transformed accordingly to a "pseudo MathML" containing **placeholders**. The goal then is to flatten this tree into a string with the help of placeholders to indicate where each flattened subtree must be included.
 
@@ -131,11 +133,11 @@ Notice that:
 * A subtree can appear multiple times if its placeholder is repeated.
 * A subtree does not appear if its corresponding placeholder doesn't appear on the node above.
 
-The purpose of this activity is to implement this flattening process. To do so implement the function `reduce_tree` on `/src/reducer.rs`. You'll also find the data definition of the tree representing this structure, which **you don't have to modify**.
+The purpose of this activity is to implement this flattening process. To do so implement the function `reduce` on `/src/tree.rs`. You'll also find the data definition of the tree representing this structure, which **you don't have to modify**.
 
 ___
 
-## Option C - MathML Postprocess
+## Option C: MathML Postprocess
 
 After the translation phase we obtain a MathML string. However, this string may contain tags without any content such as the `mrow` on `<math><mfrac><mrow></mrow><mi>2</mi></math>`,obtained after translating the LaTeX input `\frac{}{2}` for instance. Such empty tags can be represented on MathML by what's called _autoclosing tag_: any XML tag of the form `<myTag></myTag>` can be represented more concisely by `<myTag/>`.
 
@@ -151,17 +153,21 @@ becomes
 <math><mfrac><mrow/><mi>2</mi></math>        <!-- notice here the <mrow/> construct -->
 ```
 
-Or if we have the following empty equation:
+Or if we have the following MathML:
 
 ```xml
 <math display="inline"></math>
 ```
 
-the result of the postprocess is
+the result after the postprocess is
 
 ```xml
 <math display="inline"/>
 ```
 
-More precisely, implement the function that given a MathML string, replaces any empty tag by its autoclosing equivalent. To do so, open `/src/mathml-postprocess.rs` and implement the `expand_autoclosing_tags` function.
+More precisely, implement the function that given a MathML string, replaces any empty tag by its autoclosing equivalent. To do so, open `/src/postprocess.rs` and implement the `expand_autoclosing_tags` function.
 ___
+
+## Submit your code
+
+Not ready yet! ;)

@@ -28,40 +28,45 @@ Note:
 
 ### Options
 
-1. Restart your terminal and/or restart your computer
+1. Restart your terminal and/or restart your computer, or if you don't feel like it you can also add Rust to PATH manually:
 
--or-
-
-1. Add Rust to PATH manually:
-
-```sh
-source $HOME/.cargo/env
-```
+    ```sh
+    source $HOME/.cargo/env
+    ```
 
 2. Add to your bash/zsh profile:
 
-```sh
-export PATH="$HOME/.cargo/bin:$PATH"
-```
+    ```sh
+    export PATH="$HOME/.cargo/bin:$PATH"
+    ```
 
 ## Hands on
 
-To confirm that your set up is working well and that you are ready to start coding some Rust open a terminal onthe root of this directory (where this file you are reading now is located) and run:
+To confirm that your set up is working well and that you are ready to start coding some Rust open a terminal on the root of this directory (where this file you are reading now is located) and run:
 
-```sh
-cargo build
-```
+```console
+$ cargo build
 
-You should see an output like this:
-
-```output
 Finished dev [unoptimized + debuginfo] target(s) in 2.64s
 ```
 
-In addition, you can run
+to build the project.
 
-```sh
-cargo check
+To get a greet from _ferris_ run:
+
+```console
+$ cargo run
+   Compiling rust-workshop v0.1.0 (/Users/francesc/Wiris/projects/rust-workshop)
+    Finished dev [unoptimized + debuginfo] target(s) in 1.46s
+ __________________________
+< Hello fellow Rustaceans! >
+ --------------------------
+        \
+         \
+            _~^~^~_
+        \) /  o o  \ (/
+          '_   -   _'
+          / '-----' \
 ```
 
 As a bonus, run
@@ -70,9 +75,9 @@ As a bonus, run
 cargo test 
 ```
 
-to run the test set for the exercises on this workshop. **Don't panic!** None of the tests pass at this point but you are good to go to [PRACTICAL_CASE.md](./EXERCISES.md) and start coding your way through!
+to run the test set for the exercises on this workshop. **Don't panic!** None of the tests pass at this point but you are good to go to [Practical Cases.md](./PRACTICAL_CASE.md) and start coding your way through!
 
-## Extra - VSCode as IDE
+## Extra: VSCode as IDE
 
 During this Workshop we reccomend using [Visual Studio Code](https://code.visualstudio.com) as the IDE to implement your solution(s). However feel free to skip this section and use any other IDE you like.
 
