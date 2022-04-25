@@ -6,8 +6,12 @@ pub fn reduce(tree: Tree) -> String {
     let childs = *tree.childs; // Owned vector of node's childs.
     let mut res = tree.node_str; // Owned mutable string of the node's content.
 
-    // Maybe iterate childs and perform a replacement on res on each iteration?
-    return String::new();
+    
+    for (i, child) in childs.into_iter().enumerate() {
+        // replace $i on res with the recursive call to child!
+    }
+
+    return res;
 }
 
 
