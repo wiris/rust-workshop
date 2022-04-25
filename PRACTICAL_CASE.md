@@ -56,7 +56,6 @@ its tokenization is
 
 Your task is to implement the function that given a LaTeX input returns a vector of tokens according to the rules above. To do so fill the `tokenize` function on `/src/tokenizer.rs` with your implementation.
 
-
 ```bash
 cargo test tokenizer
 ```
@@ -188,4 +187,4 @@ ___
 
 ## Submit your code
 
-To submit your code, compress the whole repository and send it to my email address at [francesc@wiris.com](francesc@wiris.com)!
+To submit your code, compress the whole repository and send it to my email address at [francesc@wiris.com](mailto:francesc@wiris.com)!
