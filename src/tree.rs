@@ -6,9 +6,9 @@ pub fn reduce(tree: Tree) -> String {
     let childs = *tree.childs; // Owned vector of node's childs.
     let mut res = tree.node_str; // Owned mutable string of the node's content.
 
-    
     for (i, child) in childs.into_iter().enumerate() {
-        // replace $i on res with the recursive call to child!
+        // TODO: rreplace $i on res with the recursive call to child!. 
+        // this should be a one-liner. Look for `String::replace` and `format!` to construct the "$i" string!.
     }
 
     return res;

@@ -6,7 +6,7 @@ pub fn autoclose_tags(mathml: &str) -> String {
 
     // For each char on the imput
     for c in mathml.chars() {
-        // do something
+        // TODO: do something. You are on your own here!
     }
     
 
