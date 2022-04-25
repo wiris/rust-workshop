@@ -56,6 +56,11 @@ its tokenization is
 
 Your task is to implement the function that given a LaTeX input returns a vector of tokens according to the rules above. To do so fill the `tokenize` function on `/src/tokenizer.rs` with your implementation.
 
+
+```bash
+cargo test tokenizer
+```
+
 ___
 
 ## Option B: Tree Reducer
@@ -135,6 +140,12 @@ Notice that:
 
 The purpose of this activity is to implement this flattening process. To do so implement the function `reduce` on `/src/tree.rs`. You'll also find the data definition of the tree representing this structure, which **you don't have to modify**.
 
+You can run the provided tests to check if your implementation works as expected by:
+
+```bash
+cargo test tree
+```
+
 ___
 
 ## Option C: MathML Postprocess
@@ -165,9 +176,16 @@ the result after the postprocess is
 <math display="inline"/>
 ```
 
-More precisely, implement the function that given a MathML string, replaces any empty tag by its autoclosing equivalent. To do so, open `/src/postprocess.rs` and implement the `expand_autoclosing_tags` function.
+More precisely, implement the function that given a MathML string, replaces any empty tag by its autoclosing equivalent. To do so, open `/src/postprocess.rs` and implement the `autoclose_tags` function.
+
+You can run the provided tests to check if your implementation works as expected by:
+
+```bash
+cargo test postprocess
+```
+
 ___
 
 ## Submit your code
 
-Not ready yet! ;)
+To submit your code, compress the whole repository and send it to my email address at [francesc@wiris.com](francesc@wiris.com)!
