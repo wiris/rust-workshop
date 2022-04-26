@@ -2,6 +2,7 @@
 #![allow(unused_variables)]
 #![allow(unused_macros)]
 
+use cheat_sheet::showcase;
 use ferris_says;
 use std::io;
 use tree::Tree;
@@ -9,13 +10,17 @@ use tree::Tree;
 mod tree;
 mod tokenizer;
 mod postprocess;
+mod cheat_sheet;
 
 fn main() {
+
     greet();
 
     tokenizer_example();
     tree_example();
     postprocess_example();
+
+    showcase();
 }
 
 // Displays a greet from ferris 
