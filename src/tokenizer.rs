@@ -1,46 +1,94 @@
 const LATEX_COMMANDS : [&str; 4] = ["\\frac", "\\sqrt", "\\pm" , "\\text"];
+const STARTING_COMMAND_CHAR: char = '\\';
+const STARTING_COMMAND_BODY_CHAR: char = '{';
+const ENDING_COMMAND_BODY_CHAR: char = '}';
+const BLANK_CHAR: char = ' ';
 
 pub fn tokenize(latex: &str) -> Vec<String> {
-
-    // Mutable empty string where the result should be built on
     let mut result: Vec<String> = Vec::new();
-
-    // Vector of characters of the input, to be iterated.
     let latex_chars = latex.chars().collect::<Vec<char>>();
 
-    // Wether we are inside a text command or not.
-    let mut inside_text = false;
+    tokenize_vector(&latex_chars, &mut result, 0, latex_chars.len());
+    
+    return result;
+}
 
-    let mut i = 0;
-    while i < latex_chars.len() {
-        match latex_chars[i] {
-            '\\' => {
-                let mut j = i;
-                // We advance until the end of the command, which is a '{' character.
-                while j < latex_chars.len() && latex_chars[j] != '{' {
-                    j += 1;
-                }
-                i = j;
-                // We get the comand as a string, removing any empty spaces at the end
-                let command = String::from_iter(&latex_chars[i..j]);
-                let command = command.trim().to_string();
-
-                // TODO: Append `command` to result? Update `inside_text`?
-            },
-            '}' => {
-                // TODO: Closing bracket. Append it to `result`? Update `inside_text`?
-            }
-            ' ' => {
-                // TODO: Blank space. Append it to `result`?
-            },
-            c => {
-                // TODO: Any other character. Append it to `result`?
-            }
-        }
-        i += 1;
+fn tokenize_vector(chars: &[char], tokens: &mut Vec<String>, start: usize, end: usize) -> usize {
+    if start >= end || chars.len() <= start {
+        return 0;
     }
 
-    return result;
+    let mut padding = start;
+    let mut is_text = false;
+
+    if let Some(cmd) = find_command(chars, &LATEX_COMMANDS, start) {
+        is_text = cmd == LATEX_COMMANDS[3];
+
+        padding += cmd.len();
+        tokens.push(cmd);
+    }
+    
+    let current = chars[padding];
+    if current != BLANK_CHAR {
+        tokens.push(current.to_string());
+    }
+    
+    padding += 1;
+    if current == STARTING_COMMAND_BODY_CHAR {
+        padding += tokenize_command_body(chars, tokens, padding, end, is_text);
+    }
+
+    padding + tokenize_vector(chars, tokens, padding, end)
+}
+
+fn find_command(chars: &[char], commands: &[&str], index: usize) -> Option<String> {
+    if chars.len() <= index || chars[index] != STARTING_COMMAND_CHAR {
+        return None;
+    }
+
+    let cmd = get_command(chars, commands, index, index+1);
+    if cmd.len() == 0 {
+        return None;
+    }
+
+    if commands.iter().any(|latex_cmd| latex_cmd == &cmd) {
+        return Some(cmd);
+    }
+
+    None
+}
+
+fn get_command(chars: &[char], commands: &[&str], begin: usize, end: usize) -> String {
+    if begin >= end || chars.len() <= begin || chars.len() <= end {
+        return "".to_string();
+    }
+
+    if chars[end] == STARTING_COMMAND_BODY_CHAR || chars[end] == BLANK_CHAR {
+        return chars[begin..end].to_vec().into_iter().collect();
+    }
+
+    get_command(chars, commands, begin, end+1)
+}
+
+fn tokenize_command_body(chars: &[char], tokens: &mut Vec<String>, start: usize, end: usize, allow_blank: bool) -> usize {
+    if start >= end || chars.len() <= start {
+        return 0;
+    }
+
+    if let Some(_) = find_command(chars, &LATEX_COMMANDS, start) {
+        return tokenize_vector(chars, tokens, start, end);
+    }
+
+    let current_char: char = chars[start];
+    if current_char != BLANK_CHAR || allow_blank {
+        tokens.push(current_char.to_string());
+    }
+
+    if current_char == ENDING_COMMAND_BODY_CHAR {
+        return 1;
+    }
+
+    1 + tokenize_command_body(chars, tokens, start+1, end, allow_blank)
 }
 
 

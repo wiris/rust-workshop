@@ -8,3 +8,11 @@ ferris-says = "0.2"
 
 [dev-dependencies]
 pretty_assertions = "1.1.0"
+
+[lib]
+name = "rust_workshop"
+path = "src/lib.rs"
+
+[[bin]]
+name = "rust_workshop"
+path = "src/main.rs"
