@@ -19,8 +19,8 @@ impl Token {
         matches!(self, Token::Num(_))
     }
 
-    /// Returns true if, and only if, the Token is a multiplication or a division instead
-    fn is_mul_or_div(&self) -> bool {
+    /// Returns true if, and only if, the Token is a product or a division instead
+    fn is_prod_or_div(&self) -> bool {
         matches!(self, Token::Prod) || matches!(self, Token::Div)
     }
 }
