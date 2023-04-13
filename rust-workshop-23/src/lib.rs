@@ -16,7 +16,7 @@ pub enum Token {
 impl Token {
     /// Returns true if, and only if, the Token itself is an operator (aka.: Add, Sub, Mul, Div)
     fn is_operator(&self) -> bool {
-        matches!(self, Token::Num(_))
+        !matches!(self, Token::Num(_))
     }
 
     /// Returns true if, and only if, the Token is a product or a division instead
