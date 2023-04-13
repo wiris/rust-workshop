@@ -26,7 +26,7 @@ Notice that only elementary operations are contemplated in the solution we expec
 
 Also, feel free to add any other structure or method you consider appropriate for the implementation. The only requirement is to keep the code we provide as it is, the rest is up to you.
 
-You fill find the source code [right here](./src/lib.rs).
+You will find the source code [right here](./src/lib.rs).
 
 Good luck, and enjoy! 😁
 
