@@ -9,7 +9,7 @@ pub enum Token {
     Num(usize),
     Add,
     Sub,
-    Mul,
+    Prod,
     Div,
 }
 
@@ -21,7 +21,7 @@ impl Token {
 
     /// Returns true if, and only if, the Token is a multiplication or a division instead
     fn is_mul_or_div(&self) -> bool {
-        matches!(self, Token::Mul) || matches!(self, Token::Div)
+        matches!(self, Token::Prod) || matches!(self, Token::Div)
     }
 }
 
@@ -131,7 +131,7 @@ mod tests {
             left: Some(Node::new(Token::Num(1)).into()),
             right: Some(
                 Node {
-                    token: Token::Mul,
+                    token: Token::Prod,
                     left: Some(Node::new(Token::Num(2)).into()),
                     right: Some(Node::new(Token::Num(3)).into()),
                 }
@@ -163,7 +163,7 @@ mod tests {
                             token: Token::Div,
                             left: Some(
                                 Node {
-                                    token: Token::Mul,
+                                    token: Token::Prod,
                                     left: Some(
                                         Node {
                                             token: Token::Num(2),
