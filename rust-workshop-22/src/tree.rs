@@ -30,8 +30,6 @@ pub fn example_tree() -> Tree {
     ]
 }
 
-
-
 /// Recursive Data Structure to represent the intermediate AST for this problem. DO NOT TOUCH!
 pub struct Tree {
     node_str: String,       // String content of the node

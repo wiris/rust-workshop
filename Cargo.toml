@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "rust-workshop-2022",
-    "rust-workshop-2023",
+    "rust-workshop-22",
+    "rust-workshop-23",
 ]

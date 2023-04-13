@@ -30,7 +30,7 @@ fn greet() {
     let width = message.chars().count();
 
     let mut writer = io::BufWriter::new(stdout.lock());
-    ferris_says::say(message.as_bytes(), width, &mut writer).unwrap();
+    ferris_says::say(&message, width, &mut writer).unwrap();
     println!();
 }
 
