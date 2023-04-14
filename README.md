@@ -1,17 +1,41 @@
 # Rust Workshop
 
-Welcome to the Rust Workshop's practical part.
+[![wiris](https://custom-icon-badges.demolab.com/badge/Powered_by_the_WIRIS_team-red.svg?logo=heart&logoColor=white)](https://www.wiris.com/es/) [![rust](https://img.shields.io/badge/Rust-v1.68.0-orange.svg)](https://www.rust-lang.org/tools/install)
 
-Follow this steps to get started:
+Welcome to our collection of Rust workshops!
 
-1. Clone this repository into your computer by running
+## About
 
-    ```sh
-    git clone https://github.com/fsalar-at-wiris/rust-workshop.git
-    ```
+Here you will find all those workshops we did develop, not only for the newcomers to our team, but also for anyone else interested in learning [Rust](https://www.rust-lang.org/) for the very first time.
 
-    or you can also [download it as a `.zip`](https://github.com/fsalar-at-wiris/rust-workshop/archive/refs/heads/main.zip).
+The whole repository has been organized as a [Cargo workspace](https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html), so each workshop is located inside its own directory as `rust-workshop-xx`, where `xx` is the year when the workshop was created (22, 23, etc.).
 
-2. Set up the working environment by following [this guide](./PREPARATIVES.md).
+## Setup
 
-3. Dive into the [practical cases](./PRACTICAL_CASE.md) we prepared for you!
+### Install Rust
+
+First things first, you need to have the Rust toolchain installed in your computer. Doing so is as easy as executing the following command line:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+### Upgrade Rust
+
+In case you already have Rust installed, make sure you got the latest stable version by running the following command:
+
+```bash
+rustup update
+```
+
+### Clone the repo
+
+We assume you already have [git](https://git-scm.com/) installed in your computer. If this is not the case, just follow the [download instructions](https://git-scm.com/downloads) before continue.
+
+With the following command line, you will be able to clone up our workshops' repository in your local machine:
+
+```bash
+git clone https://github.com/wiris/rust-workshop.git
+```
+
+Great! You are ready to code ‍💻

@@ -1,10 +1,5 @@
-[package]
-name = "rust-workshop"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-ferris-says = "0.2"
-
-[dev-dependencies]
-pretty_assertions = "1.1.0"
+[workspace]
+members = [
+    "rust-workshop-22",
+    "rust-workshop-23",
+]
