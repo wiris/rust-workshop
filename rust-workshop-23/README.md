@@ -8,6 +8,23 @@ Welcome to the Rust Workshop 2023! Before starting, make sure you have read the 
 
 At WIRIS we want to build amazing software that lets students understand and manipulate its elementary equations. However, we are having struggles implementing the __String to Object__ conversion.
 
+A tree representation for the equation `"1+2*3-4/5"` would be
+
+```mermaid
+graph TD
+A([sum]) --> t1((1))
+A --> B([sub])
+
+B --> C([prod])
+B --> D([div])
+
+C --> t2((2))
+C --> t3((3))
+
+D --> t4((4))
+D --> t5((5))
+```
+
 We already know that the main structures that are required for achieving our objective are:
 
 - The `Token`, which is an [enumeration](https://doc.rust-lang.org/book/ch06-01-defining-an-enum.html) for representing each relevant particle of an expression
