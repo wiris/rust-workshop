@@ -3,6 +3,8 @@
 //! Here you have the source code for this workshop.
 //! Complete those blocks containing the `TODO` comment.
 
+use std::fmt::Display;
+
 /// Represents the available operators and operands an expression may have
 #[derive(Debug, PartialEq, Clone)]
 pub enum Token {
@@ -11,6 +13,18 @@ pub enum Token {
     Sub,
     Prod,
     Div,
+}
+
+impl Display for Token {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            Token::Num(value) => write!(f, "{}", value),
+            Token::Add => write!(f, "+"),
+            Token::Sub => write!(f, "-"),
+            Token::Prod => write!(f, "*"),
+            Token::Div => write!(f, "/"),
+        }
+    }
 }
 
 impl Token {
@@ -33,6 +47,28 @@ pub struct Node {
     right: Option<Box<Node>>,
 }
 
+impl Display for Node {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        if let Some(left) = &self.left {
+            write!(f, "{} ", left)?;
+        }
+
+        write!(f, "{}", self.token)?;
+
+        if let Some(right) = &self.right {
+            write!(f, " {}", right)?;
+        }
+
+        Ok(())
+    }
+}
+
+impl From<Token> for Node {
+    fn from(value: Token) -> Self {
+        Node::new(value)
+    }
+}
+
 impl Node {
     fn new(token: Token) -> Self {
         Node {
@@ -40,6 +76,11 @@ impl Node {
             left: Default::default(),
             right: Default::default(),
         }
+    }
+
+    /// Returns true if, and only if, the Node itself has no left and right children.
+    fn is_empty(&self) -> bool {
+        self.left.is_none() && self.right.is_none()
     }
 }
 
@@ -60,11 +101,6 @@ fn tokenize(expression: &str) -> Vec<Token> {
 /// - Potential tokens will be separated by whitespaces.
 /// - Two or more operators will never be consecutive.
 /// - Two or more operands (aka.: [`Token::Num`]) will never be consecutive.
-///
-/// ## Restrictions
-/// - The deserialization must be [__left associative__](https://en.wikipedia.org/wiki/Operator_associativity).
-/// That means that in case of two or more operations with the same priority, them must be bracket up starting
-/// by the left. Here is an example: the expression `1 + 2 + 3` will be deserialized as it was `((1 + 2) + 3)`.
 pub fn deserialize(expression: &str) -> Node {
     // TODO: implement here the deserializer algorithm
     todo!() // remove this line before starting
@@ -101,7 +137,7 @@ mod tests {
             right: Some(Node::new(Token::Num(2)).into()),
         };
 
-        assert_eq!(got, want);
+        assert_eq!(got.to_string(), want.to_string());
     }
 
     #[test]
@@ -120,7 +156,7 @@ mod tests {
             right: Some(Node::new(Token::Num(3)).into()),
         };
 
-        assert_eq!(got, want);
+        assert_eq!(got.to_string(), want.to_string());
     }
 
     #[test]
@@ -139,7 +175,7 @@ mod tests {
             ),
         };
 
-        assert_eq!(got, want);
+        assert_eq!(got.to_string(), want.to_string());
     }
 
     #[test]
@@ -207,6 +243,6 @@ mod tests {
             ),
         };
 
-        assert_eq!(got, want);
+        assert_eq!(got.to_string(), want.to_string());
     }
 }
