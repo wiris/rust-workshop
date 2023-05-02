@@ -63,12 +63,6 @@ impl Display for Node {
     }
 }
 
-impl From<Token> for Node {
-    fn from(value: Token) -> Self {
-        Node::new(value)
-    }
-}
-
 impl Node {
     fn new(token: Token) -> Self {
         Node {
